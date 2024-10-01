@@ -4,8 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TASKS-APP</title>
+    <script src="../js.js" async></script>
 </head>
 <body>
-    <h1>LISTA De TAREAS</h1>
+    <h1>API de Gestión de Tareas</h1>
+
+    <h2>Crear Tarea</h2>
+    <form id="create-task-form">
+        <label for="task-id">ID:</label>
+        <input type="number" id="task-id" required><br>
+
+        <label for="task-description">Descripción:</label>
+        <input type="text" id="task-description" required><br>
+
+        <label for="task-completed">Completada?</label>
+        <input type="checkbox" id="task-completed">
+
+        <button type="submit">Crear Tarea</button>
+    </form>
+
+    <h2>Lista de Tareas</h2>
+    <button id="get-tasks">Obtener Tareas</button>
+    <ul id="list-tasks"></ul>
 </body>
 </html>
