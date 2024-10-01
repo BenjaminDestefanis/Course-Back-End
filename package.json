@@ -1,0 +1,15 @@
+{
+  "name": "course-back-end",
+  "version": "1.0.0",
+  "description": "Curso Back-End con Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Benjamin destefanis (Codes Pixel)",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0",
+    "moongose": "^1.0.0"
+  }
+}
