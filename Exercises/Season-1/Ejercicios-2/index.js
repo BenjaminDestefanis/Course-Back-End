@@ -43,6 +43,21 @@ app.get('/getTask/:id', (req, res) => {
 
 })
 
+// Actualizacion de tarea (PUT)
+
+app.put('/task/:id', (req, res) => {
+    const task = tasks.find(t => t.id === parseInt(req.params.id))
+    if(!task){
+        return res.status(404).json({ mensaje: 'Task not found to change ...'})
+    } 
+
+    const { description, complete } = req.body
+    task.description = description !== undefined ? description : task.description
+    task.complete = complete !== undefined ? complete : task.complete
+    
+    res.json({ mensaje: 'Exit task Update!'})
+})
+
 
 
 app.listen(PORT, () => {
