@@ -35,5 +35,4 @@ const getTasks = () => {
                 li.textContent = `ID: ${t.id}, Descripcion: ${t.description}, Completada: ${t.completed}`
             })
         })
-        
 }

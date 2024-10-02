@@ -1,15 +1,14 @@
-const express = require('express')
-const path = require('path')
-const app = express()
+const express = require("express")
+const router = express.Router()
 
 
-const PORT = 3000
+let listTasks = []
 
-app.use(express.json())  // Middleware para interpretar JSON en el body de las solicitudes --
-app.use(express.static(path.join(__dirname, 'public'))) // Indica al servidor el uso de archivos estaticos --
+// Obtener todas las tareas (GET) --
 
-
-let tasks = []
+router.get('/', (req, res) => {
+    res.json(listTasks);
+})
 
 
 // Main Route --
@@ -20,21 +19,17 @@ let tasks = []
 
 // Añadir tarea (POST) --
 
-app.post('/addTask', (req, res) => {
-    console.log(req.body.description)
-    const {id, description } = req.body // Obtener info del cuerpo del documento
-    const newTask = { id, description, complete: false }; 
+router.post('/', (req, res) => {
+
+    const newTask = {
+        id: Date.now(),
+        description: req.body.text,
+        completed: false
+    }
+    
     tasks.push(newTask)
     res.status(201).json( { mensaje: 'Taks create with exit!', tarea: newTask} )
 })
-
-// Obtener todas las tareas (GET) --
-
-app.get('/getTasks', (req, res) => {
-    res.json(tasks);
-})
-
-
 
 
 // Obtener una tarea (GET)
@@ -74,10 +69,4 @@ app.delete('/task/:id', (req, res) => {
 
     tasks.splice(idToEliminated, 1)
     res.json({ mensaje: 'Task Eliminated !'})
-})
-
-
-
-app.listen(PORT, () => {
-    console.log(`Server listen on PORT: ${PORT}`)
 })
