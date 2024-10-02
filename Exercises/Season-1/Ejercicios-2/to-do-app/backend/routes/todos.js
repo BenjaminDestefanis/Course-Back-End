@@ -31,10 +31,23 @@ router.post('/', (req, res) => {
     res.status(201).json( { mensaje: 'Taks create with exit!', tarea: newTask} )
 })
 
+// Funcion completar tarea
+
+router.patch('/:id', (req, res) => {
+    const todoId = Number(req.params.id)
+    const todoFound = listTasks.find(t => t.id === todoId)
+
+    if(todoFound){
+        todoFound.completed = !todoFound.completed
+        res.status(201).json({ message: 'Tarea Actualizada', Completada: todoFound.completed})
+    } else {
+        res.status(404).json({ message : 'Tarea no encontrada'})
+    }
+})
 
 // Obtener una tarea (GET)
 
-app.get('/getTask/:id', (req, res) => {
+/* app.get('/getTask/:id', (req, res) => {
     const task = tasks.find(t => t.id === parseInt(req.params.id))
     if (!task){
         return res.status(404).json({ mensaje: 'Task not found'})
@@ -42,11 +55,11 @@ app.get('/getTask/:id', (req, res) => {
 
     res.json(task)
 
-})
+}) */
 
 // Actualizacion de tarea (PUT)
 
-app.put('/task/:id', (req, res) => {
+/* app.put('/task/:id', (req, res) => {
     const task = tasks.find(t => t.id === parseInt(req.params.id))
     if(!task){
         return res.status(404).json({ mensaje: 'Task not found to change ...'})
@@ -57,12 +70,12 @@ app.put('/task/:id', (req, res) => {
     task.complete = complete !== undefined ? complete : task.complete
     
     res.json({ mensaje: 'Exit task Update!'})
-})
+}) */
 
 // Eliminar una tarea (DELETE)
 
-app.delete('/task/:id', (req, res) => {
-    const idToEliminated = tasks.find(t => t.id === parseInt(req.params.id))
+router.delete('/:id', (req, res) => {
+    const idToEliminated = listTasks.find(t => t.id === parseInt(req.params.id))
     if(idToEliminated === -1){
         return res.status(404).json({ mensaje: 'Task not found to delete ...'})
     }
