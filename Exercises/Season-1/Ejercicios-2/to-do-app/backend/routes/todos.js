@@ -2,11 +2,12 @@ const express = require("express")
 const router = express.Router()
 
 
-let listTasks = []
+let listTasks = [{id: 789, description: 'Tocar muscia', completed: false}]
 
 // Obtener todas las tareas (GET) --
 
 router.get('/', (req, res) => {
+    console.log('GET ALL')
     res.json(listTasks);
 })
 
@@ -20,15 +21,16 @@ router.get('/', (req, res) => {
 // Añadir tarea (POST) --
 
 router.post('/', (req, res) => {
-
+    console.log("POST")
     const newTask = {
         id: Date.now(),
         description: req.body.text,
         completed: false
     }
     
-    tasks.push(newTask)
-    res.status(201).json( { mensaje: 'Taks create with exit!', tarea: newTask} )
+    listTasks.push(newTask)
+    res.json(newTask)
+    console.log(newTask)
 })
 
 // Funcion completar tarea
@@ -39,7 +41,7 @@ router.patch('/:id', (req, res) => {
 
     if(todoFound){
         todoFound.completed = !todoFound.completed
-        res.status(201).json({ message: 'Tarea Actualizada', Completada: todoFound.completed})
+        res.json({ message: 'Tarea Actualizada', Completada: todoFound.completed})
     } else {
         res.status(404).json({ message : 'Tarea no encontrada'})
     }
@@ -75,11 +77,9 @@ router.patch('/:id', (req, res) => {
 // Eliminar una tarea (DELETE)
 
 router.delete('/:id', (req, res) => {
-    const idToEliminated = listTasks.find(t => t.id === parseInt(req.params.id))
-    if(idToEliminated === -1){
-        return res.status(404).json({ mensaje: 'Task not found to delete ...'})
-    }
-
-    tasks.splice(idToEliminated, 1)
-    res.json({ mensaje: 'Task Eliminated !'})
+    const todoId = Number(req.params.id)
+    listTasks = listTasks.filter(t => t.id !== todoId)
+    res.json({message: 'Tarea eliminada'})
 })
+
+module.exports = router
