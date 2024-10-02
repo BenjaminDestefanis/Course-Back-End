@@ -38,7 +38,6 @@ router.post('/', (req, res) => {
 router.patch('/:id', (req, res) => {
     const todoId = Number(req.params.id)
     const todoFound = listTasks.find(t => t.id === todoId)
-
     if(todoFound){
         todoFound.completed = !todoFound.completed
         res.json({ message: 'Tarea Actualizada', Completada: todoFound.completed})
