@@ -13,13 +13,25 @@ app.use(express.static('../frontend/public'))
 
 const getSystemData = () => {
     const platform = os.platform()
+    const typeOs = os.type()
+    const upTime = os.uptime()
+    const arquitecture = os.arch()
+    const cpuModel = os.cpus()[0].model;
     const cpuLoad = os.loadavg()
+    const ethernetInfo = os.networkInterfaces().Ethernet
     const totalMemory = os.totalmem()
     const freeMemory = os.freemem()
     const diskUsage = 20
 
+    //console.log(ethernetInfo)
+
     return {
         platform: platform,
+        type: typeOs,
+        uptime: upTime,
+        arch: arquitecture,
+        ip: ethernetInfo[1].address,
+        cpumodel: cpuModel,
         cpuLoad: cpuLoad[0],
         totalMemory,
         freeMemory,
