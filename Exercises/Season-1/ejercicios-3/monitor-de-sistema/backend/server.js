@@ -12,12 +12,14 @@ const PORT = process.env.PORT || 3400
 app.use(express.static('../frontend/public'))
 
 const getSystemData = () => {
+    const platform = os.platform()
     const cpuLoad = os.loadavg()
     const totalMemory = os.totalmem()
     const freeMemory = os.freemem()
-    const diskUsage = 80
+    const diskUsage = 20
 
     return {
+        platform: platform,
         cpuLoad: cpuLoad[0],
         totalMemory,
         freeMemory,
